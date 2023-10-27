@@ -1,9 +1,5 @@
 <script lang="ts">
     import {onMount} from "svelte";
-    import UserCache from "$lib/stores/UserCache";
-    import forum_art from "$lib/assets/images/forum-art.svg";
-    import logo from "$lib/assets/icons/logo.svg";
-    import forum_bg from "$lib/assets/images/forum-bg.png";
     // import PostGrid from "./PostGrid.svelte";
     // import TrendingSection from "./TrendingSection.svelte";
     import DynamicNavigation from "$lib/stores/DynamicNavigation";
@@ -100,12 +96,12 @@
     {:else}
         <div class="flex flex-col my-12 mx-24 gap-8">
             {#each events as eventss}
+                <div class="bg-blue-300">
                 <p>{eventss.event_name}</p>
                 <p>{eventss.event_date}</p>
                 <p>{eventss.location}</p>
-
-                <a href="/events/event"> Register Here </a>
-
+                <a href="/events/{eventss._id}">Register Here</a>
+                </div>
             {/each}
         </div>
     {/if}

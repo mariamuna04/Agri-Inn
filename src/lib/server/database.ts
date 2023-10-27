@@ -557,7 +557,7 @@ export class Database {
 
     public static async getOneEvent(event_id: string): Promise<any> {
         consoleLog(`DATABASE LOG: Getting farm {` + event_id + `} information...`, LEVEL.OK)
-        return await collections["event"].findOne({"uid": event_id});
+        return await collections["event"].findOne({"_id": event_id});
     }
 
 }
