@@ -21,7 +21,8 @@ let collections: any = {
     "farm-products": null,
     "forum": null,
     "comment": null,
-    "news": null
+    "news": null,
+    "event" :null
 }
 
 /**
@@ -49,6 +50,7 @@ export const initializeDatabaseConnection = async (): Promise<void> => {
         collections["forum"] = databaseConnection.collection("forum");
         collections["comment"] = databaseConnection.collection("comment");
         collections["news"] = databaseConnection.collection("news");
+        collections["event"] = databaseConnection.collection("event");
         // More to add here
 
         const t_1: number = performance.now();
@@ -548,5 +550,14 @@ export class Database {
         return await collections["news"].find({}).toArray();
     }
 
+    public static async getAllEvents(): Promise<any> {
+        consoleLog("DATABASE LOG: Getting all events information...", LEVEL.OK)
+        return await collections["event"].find({}).toArray();
+    }
+
+    public static async getOneEvent(event_id: string): Promise<any> {
+        consoleLog(`DATABASE LOG: Getting farm {` + event_id + `} information...`, LEVEL.OK)
+        return await collections["event"].findOne({"uid": event_id});
+    }
 
 }

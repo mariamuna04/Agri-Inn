@@ -29,7 +29,7 @@
     }
 
     /**
-     * Handle the button click event for signing in and update the UI.
+     * Handle the button click [event] for signing in and update the UI.
      */
     const onSignInButtonClick = () => {
 		document.getElementById('sign_in_spinner')!.classList.remove('hidden');
