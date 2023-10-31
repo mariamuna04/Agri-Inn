@@ -57,6 +57,10 @@
 				<h1 class="text-xl font-bold antialiased text-amber-900">Marketplace</h1>
 				<h1 class="text-sm font-bold antialiased text-amber-900">Buy and sell your crops</h1>
 			</a>
+			<a class="rounded-2xl bg-zinc-50 p-4" href="/news">
+				<h1 class="text-xl font-bold antialiased text-amber-900">News</h1>
+				<h1 class="text-sm font-bold antialiased text-amber-900">Stay updated with latest Livestock news</h1>
+			</a>
 
 
 		</div>
@@ -68,5 +72,6 @@
 	<div class="flex gap-4 bg-amber-100 rounded-xl">
 		<a href="/marketplace">Marketplace</a>
 	</div>
+
 </main>
 
