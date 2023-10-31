@@ -21,8 +21,7 @@ let collections: any = {
     "forum": null,
     "comment": null,
     "news": null,
-    "order": null,
-    "animal-health-details": null,
+    "order": null
 }
 
 /**
@@ -50,9 +49,6 @@ export const initializeDatabaseConnection = async (): Promise<void> => {
         collections["comment"] = databaseConnection.collection("comment");
         collections["news"] = databaseConnection.collection("news");
         collections["order"] = databaseConnection.collection("order");
-        collections["animal-health-details"] = databaseConnection.collection("animal-health-details");
-
-
         // More to add here
     } catch (error: any) {
         consoleLog(`DATABASE ERROR: ${error.message}`, LEVEL.ERROR);
@@ -473,16 +469,53 @@ export class Database {
         return ordered;
     }
 
-    public static async getHealthTrack() {
-        consoleLog("DATABASE LOG: Getting all health track information...", LEVEL.OK)
-        return await collections["animal-health-details"].find({}).toArray();
-    }
-    public static async getOneNews(news_uid: string): Promise<any> {
-        consoleLog(`DATABASE LOG: Getting farm {` + news_uid + `} information...`, LEVEL.OK)
-        const allNews = await collections["news"].findOne({"u_id": news_uid});
-        console.log("kdkdkdkdkdk" + allNews)
-        return allNews
 
+    public static async getGlobalSearchResult(query: string) {
+        consoleLog(`DATABASE LOG: Global search query {` + query + `} ...`, LEVEL.OK)
+        // Get user _id, full_name, username, profile_picture, email and role
+        const user_result = await collections["user-account"].find(
+                {
+                    $or: [
+                        {"full_name": {$regex: `^${query}`}},
+                        {"credentials.username": {$regex: query}},
+                        {"credentials.email": {$regex: query}}
+                    ]
+                },
+                {
+                    projection: {
+                        _id: 1,
+                        full_name: 1,
+                        "credentials.email": 1,
+                        "credentials.username": 1,
+                        profile_picture: 1,
+                        role: 1,
+                    }
+                }
+            )
+            .toArray();
+
+        const forum_result = await collections["forum"].find(
+                {
+                    $or: [
+                        {"title": {$regex: `^${query}`}},
+                        {"post": {$regex: query}},
+                    ]
+                },
+                {
+                    projection: {
+                        _id: 1,
+                        title: 1,
+                        post: 1,
+                        author: 1,
+                    }
+                }
+            )
+            .toArray();
+
+        return {
+            user_result: user_result,
+            forum_result: forum_result
+        }
     }
 
 }

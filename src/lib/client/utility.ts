@@ -112,6 +112,3 @@ export function URLify(text: string) {
         });
     }
 }
-
-export let vaccineData = ["Vaccine_A","Vaccine_B","Vaccine_C"]
-
